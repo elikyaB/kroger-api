@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     auth: String
 }, {timestamps: true})
 
-const Users = mongoose.model("Products", ProductSchema)
+const Users = mongoose.model("Users", UserSchema)
 
 // the product schema
 const ProductSchema = new mongoose.Schema({
