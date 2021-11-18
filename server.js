@@ -127,6 +127,7 @@ app.route('/test')
     .get((req, res, next) => {
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
         // res.send(authCode)
+        next()
     })
     .get((req, res, next) => {
         res.send('test')
