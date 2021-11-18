@@ -116,11 +116,11 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-app.get('/test', (req, res) => {
-    res.send(config)
-})
+// app.get('/test', (req, res) => {
+//     res.send(config)
+// })
 
-app.post('/test?code=:id', (req, res) => {
+app.get('/test?code=:id', (req, res) => {
     const authCode = req.params.id
     res.send(authCode)
 })
