@@ -10,43 +10,50 @@ const express = require("express")
 // create the application object
 const app = express()
 
-// // import mongoose
-// const mongoose = require("mongoose")
+// import mongoose
+const mongoose = require("mongoose")
 
 // import middleware
 const cors = require("cors")
 const morgan = require("morgan")
 
 
-// /////////////////////////////////
-// // Database Connection
-// ////////////////////////////////
-// // establish connection
-// mongoose.connect(DATABASE_URL, {
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true
-// })
+/////////////////////////////////
+// Database Connection
+////////////////////////////////
+// establish connection
+mongoose.connect(DATABASE_URL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+})
 
-// // Connection Events
-// mongoose.connection
-// .on("open", () => console.log("You are connected to Mongo"))
-// .on("close", () => console.log("You are disconnected from Mongo"))
-// .on("error", (error) => console.log(error))
+// Connection Events
+mongoose.connection
+.on("open", () => console.log("You are connected to Mongo"))
+.on("close", () => console.log("You are disconnected from Mongo"))
+.on("error", (error) => console.log(error))
 
-// //////////////////////////////
-// // Models
-// //////////////////////////////
-// // the people schema
-// const ProductSchema = new mongoose.Schema({
-//     name: String,
-//     price: Number,
-//     department: String,
-//     aisle: String,
-//     image: String,
-//     location: String
-// }, {timestamps: true})
+//////////////////////////////
+// Models
+//////////////////////////////
+// the user schema
+const UserSchema = new mongoose.Schema({
+    auth: String
+}, {timestamps: true})
 
-// const Products = mongoose.model("Products", ProductSchema)
+const Users = mongoose.model("Products", ProductSchema)
+
+// the product schema
+const ProductSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+    department: String,
+    aisle: String,
+    image: String,
+    location: String
+}, {timestamps: true})
+
+const Products = mongoose.model("Products", ProductSchema)
 
 //////////////////////////////
 // Environment
@@ -116,14 +123,11 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-// app.get('/test', (req, res) => {
-//     res.send(config)
-// })
-
-app.get('/test?code=:id', (req, res) => {
-    const authCode = req.params.id
-    res.send(authCode)
+app.get('/test', (req, res) => {
+    console.log(config)
+    res.send(window.location)
 })
+
 
 // // index route
 // app.get("/products", async (req, res) => {
