@@ -128,10 +128,10 @@ app.get('/test', (req, res) => {
 })
 
 
-app.post('/test?code=:id', (req, res) => {
-    const authCode = req.params.id
-    res.send(authCode)
-})
+// app.post('/test?code=:id', (req, res) => {
+//     const authCode = req.params.id
+//     res.send(authCode)
+// })
 
 
 
