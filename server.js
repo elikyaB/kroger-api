@@ -123,10 +123,13 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-app.get('/test', (req, res) => {
-    const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1) 
-    res.send(authCode)
-})
+app.route('/test')
+    .get((req, res, next) => {
+        localStorage.setItem('authCode', req.originalUrl.slice(req.originalUrl.indexOf('=')+1))
+    })
+    .get((req, res, next) => {
+        res.send(localStorage.getItem('authCode'))
+    })
 
 
 // app.post('/test?code=:id', (req, res) => {
