@@ -125,7 +125,8 @@ app.get("/", (req, res) => {
 
 app.get('/test', (req, res) => {
     console.log(config)
-    res.send(window.location)
+    console.log(window.location)
+    res.send('test')
 })
 
 
