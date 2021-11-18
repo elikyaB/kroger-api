@@ -124,17 +124,13 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    console.log('1:'+req.params.id)
-    console.log('1:'+config)
-    console.log('1:'+window.location)
-    res.send('test1')
+    res.send(config)
 })
 
-app.get('/test?code=:id', (req, res) => {
-    console.log('2:'+req.params.id)
-    console.log('2:'+config)
-    console.log('2:'+window.location)
-    res.send('test2')
+
+app.post('/test?code=:id', (req, res) => {
+    const authCode = req.params.id
+    res.send(authCode)
 })
 
 
