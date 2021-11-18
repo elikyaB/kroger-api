@@ -128,9 +128,9 @@ app.route('/test')
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
         // res.send(authCode)
     })
-    // .post((req, res, next) => {
-    //     res.send
-    // })
+    .get((req, res, next) => {
+        res.send('test')
+    })
 
 
 // app.post('/test?code=:id', (req, res) => {
