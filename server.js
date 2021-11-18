@@ -38,7 +38,7 @@ mongoose.connection
 //////////////////////////////
 // the user schema
 const UserSchema = new mongoose.Schema({
-    auth: String
+    authCode: String
 }, {timestamps: true})
 
 const Users = mongoose.model("Users", UserSchema)
@@ -125,8 +125,8 @@ app.get("/", (req, res) => {
 
 app.route('/test')
     .get((req, res, next) => {
-        const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1) 
-        res.send(authCode)
+        const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
+        // res.send(authCode)
     })
     // .post((req, res, next) => {
     //     res.send
