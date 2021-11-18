@@ -124,7 +124,7 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    res.send(req.originalUrl)
+    res.send(req.originalUrl.slice(req.originalUrl.indexOf('=')))
 })
 
 
