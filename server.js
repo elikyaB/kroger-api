@@ -124,7 +124,8 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    res.send(req.originalUrl.slice(req.originalUrl.indexOf('=')))
+    const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1) 
+    res.send(authCode)
 })
 
 
