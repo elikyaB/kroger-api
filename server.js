@@ -123,7 +123,7 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-app.get('/test:id', (req, res) => {
+app.get('/test/:id', (req, res) => {
     res.send(req.params.id)
 })
 
