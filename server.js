@@ -90,21 +90,21 @@ function redirectToLogin() {
     return url
 }
 
-// function accessToken() {
-//     const tokenEndpoint = 'https://api.kroger.com/v1/connect/oauth2/token'
-//     // Product request body
-//     let tokenResponse = await fetch(tokenEndpoint, {
-//         method: "POST",
-//         cache: "no-cache",
-//         headers: {
-//           Authorization: `Basic ${base64(config.clientId+':'+config.clientSecret)}`,
-//           "Content-Type": "application/json; charset=utf-8"
-//         }
-//       });
+async function accessToken() {
+    const tokenEndpoint = 'https://api.kroger.com/v1/connect/oauth2/token'
+    // Product request body
+    let tokenResponse = await fetch(tokenEndpoint, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          Authorization: `Basic ${base64(config.clientId+':'+config.clientSecret)}`,
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      });
     
-//     // Return json object
-//     return tokenResponse.json();
-// }
+    // Return json object
+    return tokenResponse.json();
+}
 
 
 /////////////////////////////////
@@ -124,16 +124,14 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    console.log(config)
-    res.send('test')
-    console.log(window.location.pathname)
+    res.send(window.location.url)
 })
 
 
-// app.post('/test?code=:id', (req, res) => {
-//     const authCode = req.params.id
-//     res.send(authCode)
-// })
+app.post('/test?code=:id', (req, res) => {
+    const authCode = req.params.id
+    res.send(authCode)
+})
 
 
 
