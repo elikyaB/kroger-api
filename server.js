@@ -124,7 +124,7 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    const authCode = window.location.url
+    const authCode = String(window.location.url)
     res.send(authCode)
 })
 
