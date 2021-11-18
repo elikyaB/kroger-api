@@ -123,14 +123,15 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-app.get('/test/:id', (req, res) => {
-    res.send(req.params.id)
+app.get('/test', (req, res) => {
+    console.log('yes')
+    res.send('authcode')
 })
 
 
 // app.post('/test?code=:id', (req, res) => {
-//     // const authCode = req.params.id
-//     res.send(config)
+//     const authCode = req.params.id
+//     res.send(authCode)
 // })
 
 
