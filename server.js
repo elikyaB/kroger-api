@@ -126,12 +126,12 @@ app.get("/", (req, res) => {
 app.route('/test')
     .get((req, res, next) => {
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        // res.send(authCode)
-        next()
+        res.send(req)
+        // next()
     })
-    .get((req, res, next) => {
-        res.send('test')
-    })
+    // .get((req, res, next) => {
+    //     res.send('test')
+    // })
 
 
 // app.post('/test?code=:id', (req, res) => {
