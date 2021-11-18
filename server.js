@@ -124,7 +124,7 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    res.send(req.body.Authorization)
+    res.send(req.body)
 })
 
 
