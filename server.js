@@ -125,7 +125,7 @@ app.get("/", (req, res) => {
 
 app.get('/test', (req, res) => {
     console.log(config)
-    console.log(window.location.href)
+    console.log(window.location.pathname)
     res.send('test')
 })
 
