@@ -123,11 +123,13 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-app.get('/test', (req, res) => {
+app.get('/test?code=:id', (req, res) => {
+    console.log(req.params.id)
     console.log(config)
     console.log(window.location)
     res.send('test')
 })
+
 
 
 // // index route
