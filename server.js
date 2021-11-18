@@ -125,11 +125,12 @@ app.get("/", (req, res) => {
 
 app.route('/test')
     .get((req, res, next) => {
-        localStorage.setItem('authCode', req.originalUrl.slice(req.originalUrl.indexOf('=')+1))
+        const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1) 
+        res.send(authCode)
     })
-    .get((req, res, next) => {
-        res.send(localStorage.getItem('authCode'))
-    })
+    // .post((req, res, next) => {
+    //     res.send
+    // })
 
 
 // app.post('/test?code=:id', (req, res) => {
