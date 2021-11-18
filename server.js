@@ -123,11 +123,18 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
+app.get('/test', (req, res) => {
+    console.log('1:'+req.params.id)
+    console.log('1:'+config)
+    console.log('1:'+window.location)
+    res.send('test1')
+})
+
 app.get('/test?code=:id', (req, res) => {
-    console.log(req.params.id)
-    console.log(config)
-    console.log(window.location)
-    res.send('test')
+    console.log('2:'+req.params.id)
+    console.log('2:'+config)
+    console.log('2:'+window.location)
+    res.send('test2')
 })
 
 
