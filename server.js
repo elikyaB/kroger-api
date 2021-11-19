@@ -123,7 +123,7 @@ app.get("/", (req, res) => {
 
 app.get('/test', (req, res) => {
     const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-    res.send(authCode)
+    res.send(req.body)
 })
 
 // app.route('/test')
