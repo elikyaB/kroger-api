@@ -123,6 +123,7 @@ app.get("/", (req, res) => {
 
 app.get('/test', (req, res) => {
     const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
+    req.body = {id: "yes"}
     res.send(req.body)
 })
 
