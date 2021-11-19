@@ -121,17 +121,16 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
-// app.get('/test', (req, res) => {
-//     res.send('hi')
-// })
+app.get('/test', (req, res) => {
+    res.send('hi')
+})
 
-app.route('/test')
-    .get((req, res, next) => {
-        const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        localStorage.setItem('authCode', authCode)
-        res.send(localStorage.getItem('authCode'))
-        next()
-    })
+// app.route('/test')
+//     .get((req, res, next) => {
+//         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
+//         localStorage.setItem('authCode', authCode)
+//         res.send(localStorage.getItem('authCode'))
+//     })
     // .post((req, res, next) => {
     //     console.log('post')
     //     const tokenURL = 'https://kweb-project3.herokuapp.com/token'
