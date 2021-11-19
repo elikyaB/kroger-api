@@ -128,8 +128,8 @@ app.get("/", (req, res) => {
 app.route('/test')
     .get((req, res, next) => {
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        console.log('got ', authCode)
         localStorage.setItem('authCode', authCode)
+        res.send(localStorage.getItem('authCode'))
         next()
     })
     // .post((req, res, next) => {
