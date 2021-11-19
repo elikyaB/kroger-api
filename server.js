@@ -121,24 +121,27 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
+app.post('/test', (req, res) => {
+    res.send('hi')
+})
 
-app.route('/test')
-    .get((req, res, next) => {
-        const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        console.log('got ', authCode)
-        localStorage.setItem('authCode', authCode)
-        next()
-    })
-    .post((req, res, next) => {
-        console.log('post')
-        const tokenURL = 'https://kweb-project3.herokuapp.com/token'
-        req.body = `grant_type=authorization_code&code=${localStorage.getItem('authCode')}&redirect_uri=${tokenURL}`
-        res.set({
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
-        })
-        res.redirect(config.oauth2BaseUrl+'/token')
-    })
+// app.route('/test')
+//     .get((req, res, next) => {
+//         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
+//         console.log('got ', authCode)
+//         localStorage.setItem('authCode', authCode)
+//         next()
+//     })
+//     .post((req, res, next) => {
+//         console.log('post')
+//         const tokenURL = 'https://kweb-project3.herokuapp.com/token'
+//         req.body = `grant_type=authorization_code&code=${localStorage.getItem('authCode')}&redirect_uri=${tokenURL}`
+//         res.set({
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
+//         })
+//         res.redirect(config.oauth2BaseUrl+'/token')
+//     })
 
 app.get('/token', (req, res) => {
     res.send('made it')
