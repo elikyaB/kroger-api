@@ -96,22 +96,22 @@ function redirectToLogin() {
     return url
 }
 
-async function authorize() {
+// async function authorize() {
 
-    let headersList = {
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
+//     let headersList = {
+//         "Cache-Control": "no-cache",
+//         "Content-Type": "application/x-www-form-urlencoded"
+//     }
    
-    await fetch(redirectToLogin(), { 
-        method: "GET",
-        headers: headersList
-    }).then(function(response) {
-        return response.text();
-    }).then(function(data) {
-        console.log(data);
-    })
-}
+//     await fetch(redirectToLogin(), { 
+//         method: "GET",
+//         headers: headersList
+//     }).then(function(response) {
+//         return response.text();
+//     }).then(function(data) {
+//         console.log(data);
+//     })
+// }
 
 ////////////////////////////////
 // Routes
@@ -123,7 +123,13 @@ app.get("/", (req, res) => {
 
 app.get('/test', (req, res) => {
     const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-    req.body = {id: "yes"}
+    const tokenURL = 'https://kweb-project3.herokuapp.com/token'
+    req.body = `grant_type=authorization_code&code=${authCode}&redirect_uri=${tokenURL}`
+    res.set({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
+    })
+    // res.redirect(config.oauth2BaseUrl+'/token')
     res.send(req.body)
 })
 
