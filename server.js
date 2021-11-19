@@ -17,6 +17,23 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const morgan = require("morgan")
 
+/////////////////////////////////
+//Middleware
+//////////////////////////////////
+app.use(cors()) // prevent cors errors, opens up access for frontend
+app.use(morgan("dev")) //logging
+app.use(express.json()) // parse json bodies
+
+//////////////////////////////
+// Environment
+//////////////////////////////
+const config = { 
+    apiBaseUrl: process.env.API_BASE_URL, 
+    oauth2BaseUrl: process.env.OAUTH2_BASE_URL, 
+    clientId: process.env.CLIENT_ID, 
+    redirectUrl: process.env.REDIRECT_URL,
+    clientSecret: process.env.CLIENT_SECRET
+}
 
 /////////////////////////////////
 // Database Connection
@@ -55,20 +72,9 @@ const ProductSchema = new mongoose.Schema({
 
 const Products = mongoose.model("Products", ProductSchema)
 
-//////////////////////////////
-// Environment
-//////////////////////////////
-const config = { 
-    apiBaseUrl: process.env.API_BASE_URL, 
-    oauth2BaseUrl: process.env.OAUTH2_BASE_URL, 
-    clientId: process.env.CLIENT_ID, 
-    redirectUrl: process.env.REDIRECT_URL,
-    clientSecret: process.env.CLIENT_SECRET
-}
-
-//////////////////////////////
+////////////////////////////////
 // Authorization
-//////////////////////////////
+////////////////////////////////
 // Authorization code redirect initiated by 'login' event from Sign In button
 function redirectToLogin() {
     // Must define all scopes needed for application
@@ -90,30 +96,22 @@ function redirectToLogin() {
     return url
 }
 
-async function accessToken() {
-    const tokenEndpoint = 'https://api.kroger.com/v1/connect/oauth2/token'
-    // Product request body
-    let tokenResponse = await fetch(tokenEndpoint, {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          Authorization: `Basic ${base64(config.clientId+':'+config.clientSecret)}`,
-          "Content-Type": "application/json; charset=utf-8"
-        }
-      });
-    
-    // Return json object
-    return tokenResponse.json();
+async function authorize() {
+
+    let headersList = {
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+   
+    await fetch(redirectToLogin(), { 
+        method: "GET",
+        headers: headersList
+    }).then(function(response) {
+        return response.text();
+    }).then(function(data) {
+        console.log(data);
+    })
 }
-
-
-/////////////////////////////////
-//Middleware
-//////////////////////////////////
-app.use(cors()) // prevent cors errors, opens up access for frontend
-app.use(morgan("dev")) //logging
-app.use(express.json()) // parse json bodies
-
 
 ////////////////////////////////
 // Routes
@@ -123,11 +121,12 @@ app.get("/", (req, res) => {
     res.redirect(redirectToLogin())
 })
 
+
 app.route('/test')
     .get((req, res, next) => {
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        res.send(req)
-        // next()
+        res.send(authCode)
+        next()
     })
     // .get((req, res, next) => {
     //     res.send('test')
