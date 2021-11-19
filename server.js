@@ -16,7 +16,6 @@ const mongoose = require("mongoose")
 // import middleware
 const cors = require("cors")
 const morgan = require("morgan")
-const request = require('request')
 
 /////////////////////////////////
 //Middleware
@@ -97,30 +96,53 @@ function redirectToLogin() {
     return url
 }
 
+async function authorize() {
+
+    let headersList = {
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+   
+    await fetch(redirectToLogin(), { 
+        method: "GET",
+        headers: headersList
+    }).then(function(response) {
+        return response.text();
+    }).then(function(data) {
+        console.log(data);
+    })
+}
+
 ////////////////////////////////
 // Routes
 ////////////////////////////////
 // create a test route
 app.get("/", (req, res) => {
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body);
-        }
-    }
-    
-    request({url: redirectToLogin()}, callback);
+    res.redirect(redirectToLogin())
 })
 
 
 app.route('/test')
     .get((req, res, next) => {
         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-        res.send(authCode)
+        console.log('got ', authCode)
+        localStorage.setItem('authCode', authCode)
         next()
     })
-    // .post((req, res, next) => {
-    //     res.send('test')
-    // })
+    .post((req, res, next) => {
+        console.log('post')
+        const tokenURL = 'https://kweb-project3.herokuapp.com/token'
+        req.body = `grant_type=authorization_code&code=${localStorage.getItem('authCode')}&redirect_uri=${tokenURL}`
+        res.set({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
+        })
+        res.redirect(config.oauth2BaseUrl+'/token')
+    })
+
+app.get('/token', (req, res) => {
+    res.send('made it')
+})
 
 
 // app.post('/test?code=:id', (req, res) => {
