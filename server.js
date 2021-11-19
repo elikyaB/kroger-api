@@ -125,10 +125,10 @@ app.get('/test', (req, res) => {
     const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
     const tokenURL = 'https://kweb-project3.herokuapp.com/token'
     req.body = `grant_type=authorization_code&code=${authCode}&redirect_uri=${tokenURL}`
-    res.set({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
-    })
+    // res.set({
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
+    // })
     // res.redirect(config.oauth2BaseUrl+'/token')
     res.send(req.body)
 })
