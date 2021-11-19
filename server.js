@@ -122,7 +122,9 @@ app.get("/", (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    res.send('hi')
+    const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
+    localStorage.setItem('authCode', authCode)
+    res.send(localStorage.getItem('authCode'))
 })
 
 // app.route('/test')
