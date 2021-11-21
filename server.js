@@ -24,15 +24,15 @@ app.use(cors()) // prevent cors errors, opens up access for frontend
 app.use(morgan("dev")) //logging
 app.use(express.json()) // parse json bodies
 
-//////////////////////////////
+
+/////////////////////////////////
 // Environment
-//////////////////////////////
+//////////////////////////////////
 const config = { 
     apiBaseUrl: process.env.API_BASE_URL, 
     oauth2BaseUrl: process.env.OAUTH2_BASE_URL, 
     clientId: process.env.CLIENT_ID, 
-    redirectUrl: process.env.REDIRECT_URL,
-    clientSecret: process.env.CLIENT_SECRET
+    redirectUrl: process.env.REDIRECT_URL
 }
 
 /////////////////////////////////
@@ -96,23 +96,6 @@ function redirectToLogin() {
     return url
 }
 
-// async function authorize() {
-
-//     let headersList = {
-//         "Cache-Control": "no-cache",
-//         "Content-Type": "application/x-www-form-urlencoded"
-//     }
-   
-//     await fetch(redirectToLogin(), { 
-//         method: "GET",
-//         headers: headersList
-//     }).then(function(response) {
-//         return response.text();
-//     }).then(function(data) {
-//         console.log(data);
-//     })
-// }
-
 ////////////////////////////////
 // Routes
 ////////////////////////////////
@@ -133,22 +116,9 @@ app.get('/test', (req, res) => {
     res.send(req.body)
 })
 
-// app.route('/test')
-//     .get((req, res, next) => {
-//         const authCode = req.originalUrl.slice(req.originalUrl.indexOf('=')+1)
-//         localStorage.setItem('authCode', authCode)
-//         res.send(localStorage.getItem('authCode'))
-//     })
-    // .post((req, res, next) => {
-    //     console.log('post')
-    //     const tokenURL = 'https://kweb-project3.herokuapp.com/token'
-    //     req.body = `grant_type=authorization_code&code=${localStorage.getItem('authCode')}&redirect_uri=${tokenURL}`
-    //     res.set({
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //         'Authorization': `Basic ${base64(config.clientId+':'+config.clientSecret)}`
-    //     })
-    //     res.redirect(config.oauth2BaseUrl+'/token')
-    // })
+app.post('/test', (params) => {
+    
+})
 
 app.get('/token', (req, res) => {
     res.send('made it')
